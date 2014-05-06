@@ -16,6 +16,7 @@
                 <outlet property="btnHexColor" destination="XCy-P5-F3w" id="ZC5-Sm-kNy"/>
                 <outlet property="btnRgbColor" destination="6xh-e4-hSB" id="pEr-wh-Vg1"/>
                 <outlet property="colorBox" destination="kUO-U5-Bwl" id="5lP-6a-xkl"/>
+                <outlet property="drawBox" destination="Hnz-cr-xwk" id="lhZ-NJ-PVS"/>
                 <outlet property="window" destination="6hO-ov-qV0" id="fRC-v2-QgI"/>
             </connections>
         </customObject>
@@ -766,6 +767,10 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hnz-cr-xwk">
+                        <rect key="frame" x="45" y="125" width="211" height="51"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
         </window>

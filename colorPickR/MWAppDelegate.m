@@ -19,6 +19,7 @@
 {
     // Insert code here to initialize your application
     [self startRepeatingTimer:self];
+    //[self.drawBox ]
 }
 
 - (IBAction)startRepeatingTimer:sender {

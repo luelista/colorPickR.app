@@ -20,6 +20,7 @@
 
         <section id="downloads">
           <a href="http://colorpicker.teamwiki.net/download/" class="btn">Download as .zip</a>
+          <a href="https://github.com/max-weller/colorPickR-mac/tarball/master" class="btn">Download source as .tar.gz</a>
           <a href="https://github.com/max-weller/colorPickR-mac" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
       </div>
@@ -48,6 +49,140 @@
 <a name="version-10" class="anchor" href="#version-10"><span class="octicon octicon-link"></span></a>Version 1.0</h1>
 
 <p><img src="http://max-weller.github.io/colorPickR-mac/screenshot2.png" alt="Screenshot"></p>
+
+
+<h1>Interesting stuff</h1>
+
+<h2>How to get the color the pixel under the mouse pointer</h2>
+
+<p>In theory, it's quite simple, I should have been able to just use code I 
+  found on Stackoverflow and other sites. But Apple had the great idea to use
+  to different coordinate systems for Cocoa and Carbon. So the mouse pointer's
+  position <code>[NSEvent mouseLocation]</code> has its origin at (left, bottom) of the whole desktop space (all monitors).
+  I needed to convert it to a <code>CGPoint</code> for <code>CGDisplayCreateImageForRect</code>
+  which has origin at (left, top) of a given screen.</p>
+  
+  <p>I finally got it to work like this. It needs a 
+    <a href="https://github.com/max-weller/colorPickR-mac/blob/master/colorPickR/NSScreen%2BMWScreenPointConversion.m">
+      category on <code>NSScreen</code></a>.</p>
+
+<pre>
+  // this is MWGetScreenPixelColor.m
+  
+  #import "MWGetScreenPixelColor.h"
+  #import "NSScreen+MWScreenPointConversion.h"
+  #include <Carbon/Carbon.h>
+  
+  CGPoint GetMouseLocation() {
+      // Grab the current mouse location.
+      NSPoint ns_mouseLoc = [NSEvent mouseLocation];
+    
+      //yippie: NSEvent calculates y position from bottom, CGRect from top :)
+      CGPoint mouseLoc = [NSScreen carbonPointFrom:ns_mouseLoc];
+    
+      return mouseLoc;
+  }
+
+  bool GetDisplayMouseLocation(CGDirectDisplayID* displayID, CGPoint* mouseLocation) {
+      CGPoint mouseLoc = GetMouseLocation();
+    
+      // Grab the display for said mouse location.
+      uint32_t count = 0;
+      if (CGGetDisplaysWithPoint(mouseLoc, 1, displayID, &count) != kCGErrorSuccess)
+      {
+          NSLog(@"Oops.");
+          return FALSE;
+      }
+    
+      CGRect bounds = CGDisplayBounds(*displayID);
+    
+      mouseLocation->x = mouseLoc.x - bounds.origin.x;
+      mouseLocation->y = mouseLoc.y - bounds.origin.y;
+      return TRUE;
+  }
+
+  NSColor *GetColorAtMouse() {
+      CGPoint mouseLoc;
+      CGDirectDisplayID displayForPoint;
+    
+      if (GetDisplayMouseLocation(&displayForPoint, &mouseLoc)) {
+          return GetColorAtScreenCoordinate(displayForPoint, mouseLoc);
+      } else {
+          return NULL;
+      }
+  }
+
+  NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, CGPoint location) {
+
+      // Grab the color on said display at said mouse location.
+      CGImageRef image = CGDisplayCreateImageForRect(displayID, CGRectMake(location.x, location.y, 1, 1));
+      NSBitmapImageRep* bitmap = [[NSBitmapImageRep alloc] initWithCGImage:image];
+      CGImageRelease(image);
+      NSColor* color = [bitmap colorAtX:0 y:0];
+      NSLog(@"%@", color);
+      //[bitmap release];
+    
+      return color;
+  }
+</pre>
+
+
+<h2>How to check if a keyboard button is pressed (system global)</h2>
+
+<p>That's actually quite simple:</p>
+
+<pre>
+#include <Carbon/Carbon.h>
+
+Boolean isPressed( unsigned short inKeyCode )
+{
+    unsigned char keyMap[16];
+    GetKeys((BigEndianUInt32*) &keyMap);
+    return (0 != ((keyMap[ inKeyCode >> 3] >> (inKeyCode & 7)) & 1));
+}
+</pre>
+
+
+I use it like this to check if ^⌘ is pressed:
+
+<pre>
+if ((isPressed(kVK_Command) == 1) && (isPressed(kVK_Control) == 1)) {
+  // do things
+}
+</pre>
+
+<h2>Convert NSColor to HTML Hex and CSS RGB Color String</h2>
+  
+<pre>
+#import "NSColor+MWColorExtensions.h"
+
+@implementation NSColor (MWColorExtensions)
+
+- (NSString *)toHtmlColorString
+{
+    CGFloat red, green, blue;
+    [[self colorUsingColorSpaceName: NSCalibratedRGBColorSpace]
+     getRed: &red green: &green blue: &blue alpha: nil];
+    
+    return [NSString stringWithFormat: @"%02X%02X%02X", (unsigned)(red*255),
+            (unsigned)(green*255), (unsigned)(blue*255)];
+}
+
+
+- (NSString *)toCssRgbString
+{
+    CGFloat red, green, blue;
+    [[self colorUsingColorSpaceName: NSCalibratedRGBColorSpace]
+     getRed: &red green: &green blue: &blue alpha: nil];
+    
+    return [NSString stringWithFormat: @"rgb(%d, %d, %d)", (unsigned)(red*255),
+            (unsigned)(green*255), (unsigned)(blue*255)];
+}
+
+@end
+</pre>
+
+
       </section>
     </div>
 

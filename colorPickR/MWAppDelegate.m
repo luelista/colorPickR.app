@@ -23,12 +23,16 @@
     //[self.drawBox ]
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+    return TRUE;
+}
+
 - (IBAction)startRepeatingTimer:sender {
     
     // Cancel a preexisting timer.
     [self.repeatingTimer invalidate];
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2
                                                       target:self selector:@selector(targetMethod:)
                                                     userInfo:NULL repeats:YES];
     self.repeatingTimer = timer;
@@ -49,7 +53,7 @@
             
             NSColor* color = GetColorAtScreenCoordinate(display, mouseLoc);
             [self.colorBox setColor:color];
-            
+            [self onColorChange];
             /*NSImage* bitmap = GetRectAtPoint(display, mouseLoc, 34, 34);
             [bitmap lockFocus];
             [bitmap unlockFocus];
@@ -57,13 +61,21 @@
             [self.envImage setImage:bitmap];*/
             
             [self.envImage updateBitmapFromScreen:display atPos:mouseLoc];
-            
-            [self.btnHexColor setTitle:[color toHtmlColorString]];
-            [self.btnRgbColor setTitle:[color toCssRgbString]];
         }
         [self debugOut];
     }
     
+    
+}
+
+-(void)onColorChange {
+    NSColor* color = [self.colorBox color];
+    
+    [self.btnHexColor setTitle:[color toHtmlColorString]];
+    [self.btnRgbColor setTitle:[color toCssRgbString]];
+    
+    [self.gradSaturation paintSaturationBitmap:color];
+    [self.gradBrightness paintBrightnessBitmap:color];
     
 }
 
@@ -82,13 +94,22 @@
 }
 
 - (IBAction)toggleTopmost:(id)sender {
-    NSButton * btn = (NSButton* ) sender;
     
-    if ([btn state] == YES) {
+    if ([self.topmostBtn state] == NO) {
+        [self.topmostBtn setState:YES];
+        [self.topmostMenu setState:YES];
         [[self window] setLevel:NSFloatingWindowLevel];
     } else {
+        [self.topmostBtn setState:NO];
+        [self.topmostMenu setState:NO];
         [[self window] setLevel:NSNormalWindowLevel];
     }
+}
+
+- (IBAction)toggleDebugview:(id)sender {
+    NSRect size = [[self window] frame];
+    size.size.height = size.size.height < 300 ? 380 : 195;
+    [[self window] setFrame:size display:true];
 }
 
 - (void)debugOut {

@@ -9,9 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @interface MWHueGradientView : NSView {
-    
+    float sliderPos;
     NSBitmapImageRep         *   nsBitmapImageRepObj;
 }
 
--(void)paintGradientBitmap;
+- (void)paintGradientBitmap;
+- (void) paintSaturationBitmap:(NSColor*)hueColor;
+- (void) paintBrightnessBitmap:(NSColor*)hueColor;
+
 @end

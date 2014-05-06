@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MWEyeDropperView.h"
+#import "MWHueGradientView.h"
 
 @interface MWAppDelegate : NSObject <NSApplicationDelegate>
 
@@ -18,9 +19,17 @@
 @property (weak) IBOutlet NSColorWell *colorBox;
 @property (weak) IBOutlet NSButton *btnHexColor;
 @property (weak) IBOutlet NSButton *btnRgbColor;
+@property (weak) IBOutlet MWHueGradientView *gradHue;
+@property (weak) IBOutlet MWHueGradientView *gradSaturation;
+@property (weak) IBOutlet MWHueGradientView *gradBrightness;
 
 @property (unsafe_unretained) IBOutlet NSTextView *debugTxt;
 @property (weak) IBOutlet MWEyeDropperView *envImage;
+
+@property (weak) IBOutlet NSButton *topmostBtn;
+@property (weak) IBOutlet NSMenuItem *topmostMenu;
+
+
 
 - (IBAction)startRepeatingTimer:sender;
 - (IBAction)stopRepeatingTimer:sender;
@@ -28,5 +37,6 @@
 - (IBAction)copyHtmlColor:(id)sender;
 - (IBAction)copyCssRgbColor:(id)sender;
 - (IBAction)toggleTopmost:(id)sender;
+- (IBAction)toggleDebugview:(id)sender;
 
 @end

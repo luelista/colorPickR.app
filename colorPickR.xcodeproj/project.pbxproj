@@ -24,6 +24,7 @@
 		CEB26C5F1919499F00DAC135 /* MWHueGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB26C5E1919499F00DAC135 /* MWHueGradientView.m */; };
 		CEB26C621919551800DAC135 /* MWEyeDropperView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB26C611919551800DAC135 /* MWEyeDropperView.m */; };
 		CEB26C691919618B00DAC135 /* Color-picker3-1.icns in Resources */ = {isa = PBXBuildFile; fileRef = CEB26C681919618B00DAC135 /* Color-picker3-1.icns */; };
+		CEB26C6B19199DA400DAC135 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEB26C6A19199DA400DAC135 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		CEB26C601919551800DAC135 /* MWEyeDropperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWEyeDropperView.h; sourceTree = "<group>"; };
 		CEB26C611919551800DAC135 /* MWEyeDropperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWEyeDropperView.m; sourceTree = "<group>"; };
 		CEB26C681919618B00DAC135 /* Color-picker3-1.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Color-picker3-1.icns"; sourceTree = "<group>"; };
+		CEB26C6A19199DA400DAC135 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		CE6B9499191843A900EE0985 = {
 			isa = PBXGroup;
 			children = (
+				CEB26C6A19199DA400DAC135 /* README.md */,
 				CEB26C681919618B00DAC135 /* Color-picker3-1.icns */,
 				CE6B94AB191843A900EE0985 /* colorPickR */,
 				CE6B94C9191843A900EE0985 /* colorPickRTests */,
@@ -259,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB26C6B19199DA400DAC135 /* README.md in Resources */,
 				CEB26C691919618B00DAC135 /* Color-picker3-1.icns in Resources */,
 				CE6B94B0191843A900EE0985 /* InfoPlist.strings in Resources */,
 				CE6B94BE191843A900EE0985 /* Images.xcassets in Resources */,

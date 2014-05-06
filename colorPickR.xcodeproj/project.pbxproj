@@ -18,6 +18,8 @@
 		CE6B94C6191843A900EE0985 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6B94A5191843A900EE0985 /* Cocoa.framework */; };
 		CE6B94CE191843A900EE0985 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE6B94CC191843A900EE0985 /* InfoPlist.strings */; };
 		CE6B94D0191843A900EE0985 /* colorPickRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94CF191843A900EE0985 /* colorPickRTests.m */; };
+		CE6B94DD191845A400EE0985 /* MWGetScreenPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */; };
+		CE6B94E119184F3A00EE0985 /* NSColor+MWColorExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,10 @@
 		CE6B94CB191843A900EE0985 /* colorPickRTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "colorPickRTests-Info.plist"; sourceTree = "<group>"; };
 		CE6B94CD191843A900EE0985 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CE6B94CF191843A900EE0985 /* colorPickRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = colorPickRTests.m; sourceTree = "<group>"; };
+		CE6B94DB191845A400EE0985 /* MWGetScreenPixelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWGetScreenPixelColor.h; sourceTree = "<group>"; };
+		CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWGetScreenPixelColor.m; sourceTree = "<group>"; };
+		CE6B94DF19184F3A00EE0985 /* NSColor+MWColorExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+MWColorExtensions.h"; sourceTree = "<group>"; };
+		CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+MWColorExtensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,10 @@
 				CE6B94BA191843A900EE0985 /* MainMenu.xib */,
 				CE6B94BD191843A900EE0985 /* Images.xcassets */,
 				CE6B94AC191843A900EE0985 /* Supporting Files */,
+				CE6B94DB191845A400EE0985 /* MWGetScreenPixelColor.h */,
+				CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */,
+				CE6B94DF19184F3A00EE0985 /* NSColor+MWColorExtensions.h */,
+				CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */,
 			);
 			path = colorPickR;
 			sourceTree = "<group>";
@@ -253,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6B94DD191845A400EE0985 /* MWGetScreenPixelColor.m in Sources */,
+				CE6B94E119184F3A00EE0985 /* NSColor+MWColorExtensions.m in Sources */,
 				CE6B94B9191843A900EE0985 /* MWAppDelegate.m in Sources */,
 				CE6B94B2191843A900EE0985 /* main.m in Sources */,
 			);

@@ -11,6 +11,7 @@
 #include <Carbon/Carbon.h>
 //#import "NSColor_MWColorExtensions.h"
 #import "NSColor+MWColorExtensions.h"
+#import "NSScreen+MWScreenPointConversion.h"
 
 @implementation MWAppDelegate
 
@@ -42,15 +43,28 @@
     //NSLog(@"Command pressed? %d", key);
     
     if (key == 1 && key2 == 1) {
-        NSColor* color = GetColorAtMouse();
-        [self.colorBox setColor:color];
-        
-        [self.btnHexColor setTitle:[color toHtmlColorString]];
-        [self.btnRgbColor setTitle:[color toCssRgbString]];
-        
+        CGPoint mouseLoc;
+        CGDirectDisplayID display;
+        if (GetDisplayMouseLocation(&display, &mouseLoc)) {
+            
+            NSColor* color = GetColorAtScreenCoordinate(display, mouseLoc);
+            [self.colorBox setColor:color];
+            
+            /*NSImage* bitmap = GetRectAtPoint(display, mouseLoc, 34, 34);
+            [bitmap lockFocus];
+            [bitmap unlockFocus];
+            //NSImage * img = [[NSImage alloc] initWi]
+            [self.envImage setImage:bitmap];*/
+            
+            [self.envImage updateBitmapFromScreen:display atPos:mouseLoc];
+            
+            [self.btnHexColor setTitle:[color toHtmlColorString]];
+            [self.btnRgbColor setTitle:[color toCssRgbString]];
+        }
+        [self debugOut];
     }
     
-    [self debugOut];
+    
 }
 
 - (IBAction)copyHtmlColor:(id)sender {
@@ -80,26 +94,22 @@
 - (void)debugOut {
     // Grab the current mouse location.
     NSPoint mouseLoc = [NSEvent mouseLocation];
-    
-    //yippie: NSEvent calculates y position from bottom, CGRect from top :)
-    NSRect screenRect = [[NSScreen mainScreen] frame];
-    NSInteger height = screenRect.size.height;
-    NSInteger yPos = height - mouseLoc.y;
+    CGPoint pt2 = [NSScreen carbonPointFrom:mouseLoc];
     
     // Grab the display for said mouse location.
     uint32_t count = 0;
     CGDirectDisplayID displayForPoint;
-    if (CGGetDisplaysWithPoint(NSPointToCGPoint(mouseLoc), 1, &displayForPoint, &count) != kCGErrorSuccess)
+    if (CGGetDisplaysWithPoint(pt2, 1, &displayForPoint, &count) != kCGErrorSuccess)
     {
         NSLog(@"Oops.");
         
     }
     
-    CGPoint pt = ConvertToCarbonScreenPoint(mouseLoc);
+    //CGPoint pt = ConvertToCarbonScreenPoint(mouseLoc);
     
-    NSString* debug = [NSString stringWithFormat:@"mouseLoc: %d x %d\ncarbon mouseLoc: %d x %d\nscreenRect size: %d x %d\ndisplayId: %d",
-                       (int)mouseLoc.x, (int)mouseLoc.y, (int)pt.x, (int)pt.y,
-                       (int)screenRect.size.width, (int)screenRect.size.height, (int)displayForPoint];
+    NSString* debug = [NSString stringWithFormat:@"mouseLoc: %d x %d\ncarbon mouseLoc 2: %d x %d\n\ndisplayId: %d",
+                       (int)mouseLoc.x, (int)mouseLoc.y, (int)pt2.x, (int)pt2.y,
+                        (int)displayForPoint];
     
     [self.debugTxt setString:debug];
 

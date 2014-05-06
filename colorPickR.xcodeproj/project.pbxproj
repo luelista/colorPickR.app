@@ -20,6 +20,10 @@
 		CE6B94D0191843A900EE0985 /* colorPickRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94CF191843A900EE0985 /* colorPickRTests.m */; };
 		CE6B94DD191845A400EE0985 /* MWGetScreenPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */; };
 		CE6B94E119184F3A00EE0985 /* NSColor+MWColorExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */; };
+		CEB26C5A19193E2200DAC135 /* NSScreen+MWScreenPointConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB26C5919193E2200DAC135 /* NSScreen+MWScreenPointConversion.m */; };
+		CEB26C5F1919499F00DAC135 /* MWHueGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB26C5E1919499F00DAC135 /* MWHueGradientView.m */; };
+		CEB26C621919551800DAC135 /* MWEyeDropperView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB26C611919551800DAC135 /* MWEyeDropperView.m */; };
+		CEB26C691919618B00DAC135 /* Color-picker3-1.icns in Resources */ = {isa = PBXBuildFile; fileRef = CEB26C681919618B00DAC135 /* Color-picker3-1.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,13 @@
 		CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWGetScreenPixelColor.m; sourceTree = "<group>"; };
 		CE6B94DF19184F3A00EE0985 /* NSColor+MWColorExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+MWColorExtensions.h"; sourceTree = "<group>"; };
 		CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+MWColorExtensions.m"; sourceTree = "<group>"; };
+		CEB26C5819193E2200DAC135 /* NSScreen+MWScreenPointConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+MWScreenPointConversion.h"; sourceTree = "<group>"; };
+		CEB26C5919193E2200DAC135 /* NSScreen+MWScreenPointConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScreen+MWScreenPointConversion.m"; sourceTree = "<group>"; };
+		CEB26C5D1919499F00DAC135 /* MWHueGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWHueGradientView.h; sourceTree = "<group>"; };
+		CEB26C5E1919499F00DAC135 /* MWHueGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWHueGradientView.m; sourceTree = "<group>"; };
+		CEB26C601919551800DAC135 /* MWEyeDropperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWEyeDropperView.h; sourceTree = "<group>"; };
+		CEB26C611919551800DAC135 /* MWEyeDropperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWEyeDropperView.m; sourceTree = "<group>"; };
+		CEB26C681919618B00DAC135 /* Color-picker3-1.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Color-picker3-1.icns"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +93,7 @@
 		CE6B9499191843A900EE0985 = {
 			isa = PBXGroup;
 			children = (
+				CEB26C681919618B00DAC135 /* Color-picker3-1.icns */,
 				CE6B94AB191843A900EE0985 /* colorPickR */,
 				CE6B94C9191843A900EE0985 /* colorPickRTests */,
 				CE6B94A4191843A900EE0985 /* Frameworks */,
@@ -130,6 +142,12 @@
 				CE6B94DC191845A400EE0985 /* MWGetScreenPixelColor.m */,
 				CE6B94DF19184F3A00EE0985 /* NSColor+MWColorExtensions.h */,
 				CE6B94E019184F3A00EE0985 /* NSColor+MWColorExtensions.m */,
+				CEB26C5819193E2200DAC135 /* NSScreen+MWScreenPointConversion.h */,
+				CEB26C5919193E2200DAC135 /* NSScreen+MWScreenPointConversion.m */,
+				CEB26C5D1919499F00DAC135 /* MWHueGradientView.h */,
+				CEB26C5E1919499F00DAC135 /* MWHueGradientView.m */,
+				CEB26C601919551800DAC135 /* MWEyeDropperView.h */,
+				CEB26C611919551800DAC135 /* MWEyeDropperView.m */,
 			);
 			path = colorPickR;
 			sourceTree = "<group>";
@@ -241,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB26C691919618B00DAC135 /* Color-picker3-1.icns in Resources */,
 				CE6B94B0191843A900EE0985 /* InfoPlist.strings in Resources */,
 				CE6B94BE191843A900EE0985 /* Images.xcassets in Resources */,
 				CE6B94B6191843A900EE0985 /* Credits.rtf in Resources */,
@@ -264,9 +283,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE6B94DD191845A400EE0985 /* MWGetScreenPixelColor.m in Sources */,
+				CEB26C621919551800DAC135 /* MWEyeDropperView.m in Sources */,
 				CE6B94E119184F3A00EE0985 /* NSColor+MWColorExtensions.m in Sources */,
 				CE6B94B9191843A900EE0985 /* MWAppDelegate.m in Sources */,
+				CEB26C5A19193E2200DAC135 /* NSScreen+MWScreenPointConversion.m in Sources */,
 				CE6B94B2191843A900EE0985 /* main.m in Sources */,
+				CEB26C5F1919499F00DAC135 /* MWHueGradientView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +419,6 @@
 		CE6B94D4191843A900EE0985 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "colorPickR/colorPickR-Prefix.pch";
@@ -410,7 +431,6 @@
 		CE6B94D5191843A900EE0985 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "colorPickR/colorPickR-Prefix.pch";
@@ -479,6 +499,7 @@
 				CE6B94D5191843A900EE0985 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE6B94D6191843A900EE0985 /* Build configuration list for PBXNativeTarget "colorPickRTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +508,7 @@
 				CE6B94D8191843A900EE0985 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

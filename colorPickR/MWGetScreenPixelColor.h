@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-CGPoint ConvertToCarbonScreenPoint(NSPoint cocoaPoint);
+
+bool GetDisplayMouseLocation(CGDirectDisplayID* displayID, CGPoint* mouseLocation);
 NSColor *GetColorAtMouse();
-NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, NSInteger x, NSInteger y);
+
+NSImage *GetRectAtPoint(CGDirectDisplayID displayID, CGPoint location, int width, int height);
+NSBitmapImageRep *GetBitmapRectAtPoint(CGDirectDisplayID displayID, CGPoint location, int width, int height);
+
+NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, CGPoint location);
 Boolean isPressed( unsigned short inKeyCode );
 

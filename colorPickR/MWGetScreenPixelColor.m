@@ -7,48 +7,71 @@
 //
 
 #import "MWGetScreenPixelColor.h"
+#import "NSScreen+MWScreenPointConversion.h"
 #include <Carbon/Carbon.h>
 
-CGPoint ConvertToCarbonScreenPoint(NSPoint cocoaPoint) {
-    NSScreen* foundScreen = nil;
-    NSRect screenFrame;
-    for (NSScreen* screen in [NSScreen screens]) {
-        screenFrame = [screen frame];
-        if (NSPointInRect(cocoaPoint, screenFrame)) {
-            foundScreen = screen;
-            break;
-        }
-    }
-    if (! foundScreen) return CGPointMake(0.0, 0.0);
-    return CGPointMake(cocoaPoint.x,
-            screenFrame.origin.y + screenFrame.size.height - cocoaPoint.y);
-}
-
-NSColor *GetColorAtMouse() {
+CGPoint GetMouseLocation() {
     // Grab the current mouse location.
-    NSPoint mouseLoc = [NSEvent mouseLocation];
+    NSPoint ns_mouseLoc = [NSEvent mouseLocation];
     
     //yippie: NSEvent calculates y position from bottom, CGRect from top :)
-    NSRect screenRect = [[NSScreen mainScreen] frame];
-    NSInteger height = screenRect.size.height;
-    NSInteger yPos = height - mouseLoc.y;
+    CGPoint mouseLoc = [NSScreen carbonPointFrom:ns_mouseLoc];
+    
+    return mouseLoc;
+}
+
+bool GetDisplayMouseLocation(CGDirectDisplayID* displayID, CGPoint* mouseLocation) {
+    CGPoint mouseLoc = GetMouseLocation();
     
     // Grab the display for said mouse location.
     uint32_t count = 0;
-    CGDirectDisplayID displayForPoint;
-    if (CGGetDisplaysWithPoint(NSPointToCGPoint(mouseLoc), 1, &displayForPoint, &count) != kCGErrorSuccess)
+    if (CGGetDisplaysWithPoint(mouseLoc, 1, displayID, &count) != kCGErrorSuccess)
     {
         NSLog(@"Oops.");
-        return 0;
+        return FALSE;
     }
-   // NSLog(@"Mouse pos: %f, %f, %d, %d", mouseLoc.x, mouseLoc.y, (int)mouseLoc.x, (int)mouseLoc.y);
-    return GetColorAtScreenCoordinate(displayForPoint, mouseLoc.x, yPos);
+    
+    CGRect bounds = CGDisplayBounds(*displayID);
+    
+    mouseLocation->x = mouseLoc.x - bounds.origin.x;
+    mouseLocation->y = mouseLoc.y - bounds.origin.y;
+    return TRUE;
 }
 
-NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, NSInteger x, NSInteger y) {
+NSColor *GetColorAtMouse() {
+    CGPoint mouseLoc;
+    CGDirectDisplayID displayForPoint;
+    
+    if (GetDisplayMouseLocation(&displayForPoint, &mouseLoc)) {
+    // NSLog(@"Mouse pos: %f, %f, %d, %d", mouseLoc.x, mouseLoc.y, (int)mouseLoc.x, (int)mouseLoc.y);
+        return GetColorAtScreenCoordinate(displayForPoint, mouseLoc);
+    } else {
+        return NULL;
+    }
+}
+
+NSImage *GetRectAtPoint(CGDirectDisplayID displayID, CGPoint location, int width, int height) {
+    
+    CGImageRef image = CGDisplayCreateImageForRect(displayID, CGRectMake(location.x-(width/2), location.y-(height/2), width, height));
+    NSImage* bitmap = [[NSImage alloc] initWithCGImage:image size:NSMakeSize(width*3, height*3)];
+    CGImageRelease(image);
+    
+    return bitmap;
+}
+
+NSBitmapImageRep *GetBitmapRectAtPoint(CGDirectDisplayID displayID, CGPoint location, int width, int height) {
+    
+    CGImageRef image = CGDisplayCreateImageForRect(displayID, CGRectMake(location.x-(width/2), location.y-(height/2), width, height));
+    NSBitmapImageRep* bitmap = [[NSBitmapImageRep alloc] initWithCGImage:image];
+    CGImageRelease(image);
+    
+    return bitmap;
+}
+
+NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, CGPoint location) {
 
     // Grab the color on said display at said mouse location.
-    CGImageRef image = CGDisplayCreateImageForRect(displayID, CGRectMake(x, y, 1, 1));
+    CGImageRef image = CGDisplayCreateImageForRect(displayID, CGRectMake(location.x, location.y, 1, 1));
     NSBitmapImageRep* bitmap = [[NSBitmapImageRep alloc] initWithCGImage:image];
     CGImageRelease(image);
     NSColor* color = [bitmap colorAtX:0 y:0];

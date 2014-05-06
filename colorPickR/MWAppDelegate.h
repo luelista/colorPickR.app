@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MWEyeDropperView.h"
 
 @interface MWAppDelegate : NSObject <NSApplicationDelegate>
 
@@ -17,8 +18,9 @@
 @property (weak) IBOutlet NSColorWell *colorBox;
 @property (weak) IBOutlet NSButton *btnHexColor;
 @property (weak) IBOutlet NSButton *btnRgbColor;
-@property (weak) IBOutlet NSView *drawBox;
+
 @property (unsafe_unretained) IBOutlet NSTextView *debugTxt;
+@property (weak) IBOutlet MWEyeDropperView *envImage;
 
 - (IBAction)startRepeatingTimer:sender;
 - (IBAction)stopRepeatingTimer:sender;

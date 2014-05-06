@@ -10,6 +10,19 @@
 
 @interface MWAppDelegate : NSObject <NSApplicationDelegate>
 
+
+@property (weak) NSTimer *repeatingTimer;
+
 @property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSColorWell *colorBox;
+@property (weak) IBOutlet NSButton *btnHexColor;
+@property (weak) IBOutlet NSButton *btnRgbColor;
+
+- (IBAction)startRepeatingTimer:sender;
+- (IBAction)stopRepeatingTimer:sender;
+- (void)targetMethod:(NSTimer*)theTimer;
+- (IBAction)copyHtmlColor:(id)sender;
+- (IBAction)copyCssRgbColor:(id)sender;
+- (IBAction)toggleTopmost:(id)sender;
 
 @end

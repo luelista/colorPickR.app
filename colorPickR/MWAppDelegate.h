@@ -18,6 +18,7 @@
 @property (weak) IBOutlet NSButton *btnHexColor;
 @property (weak) IBOutlet NSButton *btnRgbColor;
 @property (weak) IBOutlet NSView *drawBox;
+@property (unsafe_unretained) IBOutlet NSTextView *debugTxt;
 
 - (IBAction)startRepeatingTimer:sender;
 - (IBAction)stopRepeatingTimer:sender;

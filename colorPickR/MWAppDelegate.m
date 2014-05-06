@@ -49,6 +49,8 @@
         [self.btnRgbColor setTitle:[color toCssRgbString]];
         
     }
+    
+    [self debugOut];
 }
 
 - (IBAction)copyHtmlColor:(id)sender {
@@ -73,6 +75,34 @@
     } else {
         [[self window] setLevel:NSNormalWindowLevel];
     }
+}
+
+- (void)debugOut {
+    // Grab the current mouse location.
+    NSPoint mouseLoc = [NSEvent mouseLocation];
+    
+    //yippie: NSEvent calculates y position from bottom, CGRect from top :)
+    NSRect screenRect = [[NSScreen mainScreen] frame];
+    NSInteger height = screenRect.size.height;
+    NSInteger yPos = height - mouseLoc.y;
+    
+    // Grab the display for said mouse location.
+    uint32_t count = 0;
+    CGDirectDisplayID displayForPoint;
+    if (CGGetDisplaysWithPoint(NSPointToCGPoint(mouseLoc), 1, &displayForPoint, &count) != kCGErrorSuccess)
+    {
+        NSLog(@"Oops.");
+        
+    }
+    
+    CGPoint pt = ConvertToCarbonScreenPoint(mouseLoc);
+    
+    NSString* debug = [NSString stringWithFormat:@"mouseLoc: %d x %d\ncarbon mouseLoc: %d x %d\nscreenRect size: %d x %d\ndisplayId: %d",
+                       (int)mouseLoc.x, (int)mouseLoc.y, (int)pt.x, (int)pt.y,
+                       (int)screenRect.size.width, (int)screenRect.size.height, (int)displayForPoint];
+    
+    [self.debugTxt setString:debug];
+
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+CGPoint ConvertToCarbonScreenPoint(NSPoint cocoaPoint);
 NSColor *GetColorAtMouse();
 NSColor *GetColorAtScreenCoordinate(CGDirectDisplayID displayID, NSInteger x, NSInteger y);
 Boolean isPressed( unsigned short inKeyCode );

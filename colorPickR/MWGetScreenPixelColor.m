@@ -9,6 +9,20 @@
 #import "MWGetScreenPixelColor.h"
 #include <Carbon/Carbon.h>
 
+CGPoint ConvertToCarbonScreenPoint(NSPoint cocoaPoint) {
+    NSScreen* foundScreen = nil;
+    NSRect screenFrame;
+    for (NSScreen* screen in [NSScreen screens]) {
+        screenFrame = [screen frame];
+        if (NSPointInRect(cocoaPoint, screenFrame)) {
+            foundScreen = screen;
+            break;
+        }
+    }
+    if (! foundScreen) return CGPointMake(0.0, 0.0);
+    return CGPointMake(cocoaPoint.x,
+            screenFrame.origin.y + screenFrame.size.height - cocoaPoint.y);
+}
 
 NSColor *GetColorAtMouse() {
     // Grab the current mouse location.

@@ -3,7 +3,7 @@ colorPickR-mac
 
 Mac version of [colorPickR](http://colorpicker.teamwiki.net/)
 
-![Screenshot](http://max-weller.github.io/colorPickR-mac/screenshot1.png)
+![Screenshot](http://max-weller.github.io/colorPickR.app/screenshot1.png)
 
 Clone the repo to hack at the source code...
 
